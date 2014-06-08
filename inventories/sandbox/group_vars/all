@@ -1,0 +1,5 @@
+
+# Connection settings for a vagrant boxes
+remote_user: "vagrant"
+ansible_ssh_user: "vagrant"
+ansible_ssh_private_key_file: ~/.vagrant.d/insecure_private_key
