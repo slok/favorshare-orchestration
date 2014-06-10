@@ -4,6 +4,7 @@
 - name: Create main user
   user:
     name: "{{ main_user }}"
+    shell: "/bin/bash"
   tags:
     - main_user
     - create_user

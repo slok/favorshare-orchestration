@@ -5,6 +5,7 @@
   user:
     name: "{{ item.name }}"
     state: "{{ 'present' if item.name in authorized_users else 'absent' }}"
+    shell: "/bin/bash"
   with_items: system_users 
   tags:
     - create_users

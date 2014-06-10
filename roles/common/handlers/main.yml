@@ -1,0 +1,4 @@
+
+- name: Save the hostname
+  hostname:
+      name: "{{ machine_hostname }}"

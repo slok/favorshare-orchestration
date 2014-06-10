@@ -1,12 +1,26 @@
 ---
 
 
-- name: Set motd
-  template:
-    src: 60-warning.j2
-    dest: /etc/update-motd.d/60-warning
-    owner: root
-    group: root
-    mode: 0755
+- name: Set bash_profile to the users
+  copy:
+    src: bash_profile
+    dest: "/home/{{ item.name }}/.bash_profile"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  when: item.name in authorized_users
+  with_items: system_users
   tags:
-    - motd
+    - bash_profile
+
+- name: Set bashrc to the users
+  template:
+    src: bashrc.j2
+    dest: "/home/{{ item.name }}/.bashrc"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  when: item.name in authorized_users
+  with_items: system_users
+  tags:
+    - bashrc

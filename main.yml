@@ -3,10 +3,21 @@
 
 - name: Common authorization for all servers
   hosts: all
-  sudo: true
+  sudo: True
   gather_facts: False
   roles:
     - authorization
   tags:
-    - common
+    - all
     - authorization
+
+
+- name: Common stuff for all the server
+  hosts: all
+  sudo: True
+  gather_facts: False
+  roles:
+    - common
+  tags:
+    - all
+    - common

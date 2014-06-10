@@ -13,5 +13,5 @@ motd_length: 80
 motd_message: KEEP CALM AND DESTROY THE SANDBOX
 motd_warning_reset: "\e[m"
 
+# Check "roles/authorization/templates/bashrc.j2" for more colors
 bashrc_promp_color: BGREEN
-bashrc_promp_host:
