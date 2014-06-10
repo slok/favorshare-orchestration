@@ -11,14 +11,17 @@
 - name: Add main user to sudoers
   template:
     src: sudoer.j2
-    dest: /etc/sudoers.d/{{ item.file_name }}
+    dest: /etc/sudoers.d/{{ item.name }}
     owner: root
     group: root
     mode: 0440
-    validate: 'visudo -cf %s'
-  # Small hack to reuse this later for all the users (we the same template for all)
+  # Small hack to reuse this later for all the users 
+  # (we the same template for all, see give_access_to_users.yml)
   with_items:
-    - {sudoer_name: "{{ main_user }}", file_name: "{{ main_user }}"}
+    - {'name': "{{ main_user }}" }
+  tags:
+    - sudoers
+    - main_user
 
 - name: Copy main user public keys
   authorized_key:

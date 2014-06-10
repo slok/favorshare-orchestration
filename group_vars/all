@@ -2,9 +2,9 @@
 #-------------------------------------------------------------------------------
 # This user will be the main user to run things (and ansible)
 main_user: favorshare
-remote_user: "{{main_user}}"
-ansible_ssh_user: "{{main_user}}"
-ansible_ssh_private_key: "~/.ssh/favorshare"
+remote_user: "{{ main_user }}"
+ansible_ssh_user: "{{main_user }}"
+ansible_ssh_private_key_file: "~/.ssh/favorshare"
 # This are local based in roles/authorizartion/files/public_keys
 ansible_ssh_public_key_files:
   - "public_keys/favorshare.pub"
@@ -12,17 +12,16 @@ ansible_ssh_public_key_files:
   #- "public_keys/id_rsa3.pub"
 
 #-------------------------------------------------------------------------------
-# The users authorization to the machines
-users_authorization:
-  - username: "user1"
-    sudoer: true
-    home: false
-    authorized_ssh_keys:
-      - "ssh_keys/key1.pub"
-      - "ssh_keys/key2.pub"
-  - username: "user2"
-    sudoer: false
-    home: false
-    authorized_ssh_keys: 
-      - "ssh_keys/key3.pub"
-      - "ssh_keys/key4.pub"
+# All the users of the system.
+# To give access to each machine in the inventories  host_vars
+system_users:
+  - name: "user1"
+    public_keys:
+      - "ssh_keys/user1.pub"
+      #- "ssh_keys/user1_2.pub"
+  - name: "user2"
+    public_keys: 
+      - "ssh_keys/user2.pub"
+  - name: "user3"
+    public_keys:
+      - "ssh_keys/user3.pub"

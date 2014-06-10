@@ -1,0 +1,16 @@
+
+#-------------------------------------------------------------------------------
+# Connection settings
+ansible_ssh_host: 192.168.100.41
+
+#-------------------------------------------------------------------------------
+# The authorized users in this machine
+authorized_users:
+  - user1
+  - user2
+  - user3
+
+# The sudoer users
+sudo_users:
+  - user1
+  - user2

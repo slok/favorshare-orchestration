@@ -1,0 +1,45 @@
+---
+
+
+- name: Create the users in the machines
+  user:
+    name: "{{ item.name }}"
+    state: "{{ 'present' if item.name in authorized_users else 'absent' }}"
+  with_items: system_users 
+  tags:
+    - create_users
+    - system_users
+
+- name: Activate granted sudo users
+  template:
+    src: sudoer.j2
+    dest: /etc/sudoers.d/{{ item.name }}
+    owner: root
+    group: root
+    mode: 0440
+  when: item.name in sudo_users
+  with_items: system_users
+  tags:
+    - sudoers
+    - system_users
+
+- name: Deactivate denied sudo users
+  file:
+    path: /etc/sudoers.d/{{ item.name }}
+    state: "{{ 'file' if item.name in sudo_users else 'absent' }}"
+  with_items: system_users
+  tags:
+    - sudoers
+    - system_users
+
+- name: Copy system users public keys
+  authorized_key:
+    user: "{{ item.0.name }}"
+    key: "{{ lookup('file', item.1) }}"
+  when: item.0.name in authorized_users
+  with_subelements:
+     - system_users
+     - public_keys
+  tags:
+    - system_users
+    - public_keys
