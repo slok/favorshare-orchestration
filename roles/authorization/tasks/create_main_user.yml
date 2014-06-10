@@ -1,0 +1,30 @@
+---
+
+
+- name: Create main user
+  user:
+    name: "{{ main_user }}"
+  tags:
+    - main_user
+    - create_user
+
+- name: Add main user to sudoers
+  template:
+    src: sudoer.j2
+    dest: /etc/sudoers.d/{{ item.file_name }}
+    owner: root
+    group: root
+    mode: 0440
+    validate: 'visudo -cf %s'
+  # Small hack to reuse this later for all the users (we the same template for all)
+  with_items:
+    - {sudoer_name: "{{ main_user }}", file_name: "{{ main_user }}"}
+
+- name: Copy main user public keys
+  authorized_key:
+    user: "{{ main_user }}"
+    key: "{{ item }}"
+  with_file: ansible_ssh_public_key_files
+  tags:
+    - main_user
+    - public_keys

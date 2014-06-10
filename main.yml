@@ -1,0 +1,12 @@
+---
+
+
+- name: Common authorization for all servers
+  hosts: all
+  sudo: true
+  gather_facts: False
+  roles:
+    - authorization
+  tags:
+    - common
+    - authorization

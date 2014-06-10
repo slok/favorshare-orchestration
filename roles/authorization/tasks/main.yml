@@ -1,0 +1,9 @@
+---
+
+
+
+- include: create_main_user.yml
+  vars:
+    remote_user: "{{ first_remote_user }}"
+    ansible_ssh_user: "{{ first_ansible_ssh_user }}"
+    ansible_ssh_private_key_file: "{{ first_ansible_ssh_private_key_file }}"
