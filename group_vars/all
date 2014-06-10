@@ -5,7 +5,7 @@ main_user: favorshare
 remote_user: "{{main_user}}"
 ansible_ssh_user: "{{main_user}}"
 ansible_ssh_private_key: "~/.ssh/favorshare"
-# This are local based in roles/authorizartion/files/ssh_keys
+# This are local based in roles/authorizartion/files/public_keys
 ansible_ssh_public_key_files:
   - "public_keys/favorshare.pub"
   #- "public_keys/id_rsa2.pub"
