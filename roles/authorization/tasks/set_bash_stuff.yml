@@ -1,0 +1,12 @@
+---
+
+
+- name: Set motd
+  template:
+    src: 60-warning.j2
+    dest: /etc/update-motd.d/60-warning
+    owner: root
+    group: root
+    mode: 0755
+  tags:
+    - motd

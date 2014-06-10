@@ -1,0 +1,9 @@
+#!/bin/bash
+ 
+echo -e "{{ motd_warning_color }}{{ motd_character * motd_length }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_character }}{{ ' ' * (motd_length|int - 2)|int }}{{ motd_character }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_character }}{{ ' ' * (motd_length|int - 2)|int }}{{ motd_character }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_character }}{{ motd_message|center(motd_length|int - 2) }}{{ motd_character }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_character }}{{ ' ' * (motd_length|int - 2)|int }}{{ motd_character }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_character }}{{ ' ' * (motd_length|int - 2)|int }}{{ motd_character }}{{ motd_warning_reset }}"
+echo -e "{{ motd_warning_color }}{{ motd_warning_color }}{{ motd_character * motd_length }}{{ motd_warning_reset }}"

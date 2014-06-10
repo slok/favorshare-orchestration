@@ -17,11 +17,11 @@ ansible_ssh_public_key_files:
 system_users:
   - name: "user1"
     public_keys:
-      - "ssh_keys/user1.pub"
-      #- "ssh_keys/user1_2.pub"
+      - "public_keys/user1.pub"
+      #- "public_keys/user1_2.pub"
   - name: "user2"
     public_keys: 
-      - "ssh_keys/user2.pub"
+      - "public_keys/user2.pub"
   - name: "user3"
     public_keys:
-      - "ssh_keys/user3.pub"
+      - "public_keys/user3.pub"
