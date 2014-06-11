@@ -41,3 +41,13 @@ common_dependencies:
     version: "1.5.4-1"
   - name: "git"
     version: "1:1.9.1-1"
+
+#-------------------------------------------------------------------------------
+# Supervisord configuration
+supervisord_version: "3.0"
+supervisord_conf_path: "/etc"
+supervisord_confs_path: "/etc/supervisord.d"
+supervisord_logs_path: "/var/log/supervisord"
+supervisord_pids_path: "/var/run/supervisord"
+supervisord_binary: "/usr/local/bin/supervisord"
+

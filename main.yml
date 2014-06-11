@@ -21,3 +21,24 @@
   tags:
     - all
     - common
+
+- name: supervisord
+  hosts: all
+  sudo: True
+  gather_facts: False
+  roles:
+    - supervisord
+  tags:
+    - supervisord
+    - install
+    - conf
+
+#- name: Install postgresql
+#  hosts: dbservers
+#  sudo: True
+#  gather_facts: False
+#  roles:
+#    - Ansibles.postgresql
+#  tags:
+#    - install
+#    - postgresql

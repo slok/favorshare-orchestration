@@ -10,4 +10,6 @@
 
 - include: give_access_to_users.yml
 
+- include: create_service_runner_user.yml
+
 - include: set_bash_stuff.yml
