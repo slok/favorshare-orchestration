@@ -25,3 +25,15 @@ system_users:
   - name: "user3"
     public_keys:
       - "public_keys/user3.pub"
+
+#-------------------------------------------------------------------------------
+# Common dependencies in all the hosts
+common_dependencies:
+  - name: "python"
+    version: "2.7.5-5ubuntu3"
+  - name: "python-dev"
+    version: "2.7.5-5ubuntu3"
+  - name: "python-pip"
+    version: "1.5.4-1"
+  - name: "git"
+    version: "1:1.9.1-1"

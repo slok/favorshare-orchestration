@@ -31,3 +31,19 @@
   notify: Save the hostname
   tags:
     - hostname
+
+- name: Update package repositories
+  apt:
+    update_cache: True
+  tags:
+    - apt
+    - update_cache
+
+- name: Install common dependencies
+  apt:
+    name: "{{ item.name }}={{ item.version }}"
+    state: present
+  with_items: common_dependencies
+  tags:
+    - apt
+    - dependencies
