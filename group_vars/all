@@ -37,3 +37,5 @@ common_dependencies:
     version: "1.5.4-1"
   - name: "git"
     version: "1:1.9.1-1"
+  - name: "python-virtualenv"
+    version: "1.11.4-1"
