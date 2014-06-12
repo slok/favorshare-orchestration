@@ -32,6 +32,7 @@
     owner: "{{ service_runner_user }}"
     group: "{{ service_runner_group }}"
     mode: 0222
+  notify: Start supervisord  # Restart only if changes
   tags:
     - install
     - supervisord
@@ -43,7 +44,6 @@
     owner: "root"
     group: "root"
     mode: 0755
-  notify: Start supervisord
   tags:
     - upstart
     - init

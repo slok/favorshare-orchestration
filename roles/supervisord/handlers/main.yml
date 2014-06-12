@@ -2,4 +2,4 @@
 - name: Start supervisord
   service:
       name: "supervisord"
-      state: "reloaded"
+      state: "restarted"

@@ -8,6 +8,9 @@ port=*:9001
 ;username=user
 ;password=123
 
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
 [supervisord]
 logfile={{ supervisord_logs_path }}/supervisord.log
 pidfile={{ supervisord_pids_path }}/supervisord.pid
