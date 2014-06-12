@@ -1,6 +1,6 @@
 
 #-------------------------------------------------------------------------------
-# This user will be the main user to run things (and ansible)
+# This user will be the main user
 main_user: favorshare
 remote_user: "{{ main_user }}"
 ansible_ssh_user: "{{main_user }}"
@@ -26,6 +26,10 @@ system_users:
     public_keys:
       - "public_keys/user3.pub"
 
+# The user that will run the services in the machines like supervisor
+service_runner_user: "nobody"
+service_runner_group: "nogroup"
+
 #-------------------------------------------------------------------------------
 # Common dependencies in all the hosts
 common_dependencies:
@@ -39,3 +43,12 @@ common_dependencies:
     version: "1:1.9.1-1"
   - name: "python-virtualenv"
     version: "1.11.4-1"
+
+#-------------------------------------------------------------------------------
+# Supervisord configuration
+supervisord_version: "3.0"
+supervisord_conf_path: "/etc"
+supervisord_confs_path: "/etc/supervisord.d"
+supervisord_logs_path: "/var/log/supervisord"
+supervisord_pids_path: "/var/run/supervisord"
+supervisord_binary: "/usr/local/bin/supervisord"

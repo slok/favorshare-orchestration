@@ -1,0 +1,50 @@
+---
+
+
+- name: Install supervisord
+  pip:
+    name: "supervisor"
+    version: "{{ supervisord_version }}"
+  tags:
+    - install
+    - supervisord
+
+- name: Create directories for supervisord
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0755
+  with_items:
+    - "{{ supervisord_conf_path }}"
+    - "{{ supervisord_logs_path }}"
+    - "{{ supervisord_pids_path }}"
+    - "{{ supervisord_confs_path }}"
+  tags:
+    - directories
+    - supervisord
+
+- name: Set basic supervisord configuration (not per service)
+  template:
+    src: supervisord.conf.j2
+    dest: "{{ supervisord_conf_path }}/supervisord.conf"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0222
+  tags:
+    - install
+    - supervisord
+
+- name: Set upstart script
+  template:
+    src: supervisord.init.j2
+    dest: "/etc/init.d/supervisord"
+    owner: "root"
+    group: "root"
+    mode: 0755
+  notify: Start supervisord
+  tags:
+    - upstart
+    - init
+    - supervisord

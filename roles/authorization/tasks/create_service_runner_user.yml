@@ -1,0 +1,23 @@
+---
+
+
+- name: Create service runner group
+  group:
+    name: "{{ service_runner_group }}"
+    state: present
+    system: True
+  tags:
+    - service_runner
+    - group
+
+- name: Create service runner user
+  user:
+    name: "{{ service_runner_user }}"
+    state: "present"
+    shell: "/usr/sbin/nologin"
+    system: True
+    group: "{{ service_runner_group }}"
+    createhome: False
+  tags:
+    - service_runner
+    - user

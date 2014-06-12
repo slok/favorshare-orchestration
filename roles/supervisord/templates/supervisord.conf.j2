@@ -1,0 +1,21 @@
+[unix_http_server]
+file=/tmp/supervisor.sock
+chmod=0700
+chown=nobody:nogroup
+
+[inet_http_server]
+port=*:9001
+;username=user
+;password=123
+
+[supervisord]
+logfile={{ supervisord_logs_path }}/supervisord.log
+pidfile={{ supervisord_pids_path }}/supervisord.pid
+user={{ service_runner_user }}
+
+[supervisorctl]
+serverurl=unix:///tmp/supervisor.sock
+chown={{ service_runner_user }}:{{ service_runner_group }}
+
+[include]
+files = {{ supervisord_confs_path }}/*.conf
