@@ -5,8 +5,8 @@ chown=nobody:nogroup
 
 [inet_http_server]
 port=*:9001
-;username=user
-;password=123
+username={{ supervisord_http_user }}
+password={{ supervisord_http_pass }}
 
 [rpcinterface:supervisor]
 supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
