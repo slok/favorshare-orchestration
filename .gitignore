@@ -1,1 +1,4 @@
 .vagrant
+
+# Ansible galaxy roles
+Ansibles.postgresql
