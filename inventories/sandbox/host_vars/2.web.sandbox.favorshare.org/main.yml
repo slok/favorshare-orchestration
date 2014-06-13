@@ -13,4 +13,3 @@ authorized_users: []  # Void list (remove when adding the first element)
 
 ## The sudoer users
 sudo_users: []  # Void list (remove when adding the first element)
-

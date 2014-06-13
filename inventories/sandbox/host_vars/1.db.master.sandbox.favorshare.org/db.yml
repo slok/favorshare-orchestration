@@ -1,0 +1,13 @@
+#-------------------------------------------------------------------------------
+# Postgres settings per host (global settings for all db servers in inventories/*/group_vars/dbservers)
+postgresql_max_connections: 100
+postgresql_effective_cache_size: "128MB"  # This value should be roughly the amount of 'available' memory (always round down to the nearest 50 MB) as seen in the Activity Monitor without PostgreSQL running. If there are other applications that will also run, you want to subtract their memory footprint. It is good to take the reading before installing PostgreSQL.
+postgresql_maintenance_work_mem: "25MB"  # This value should be 50MB for machines with 1 GB of RAM or more and 20MB for those with less. Enter values as xxMB.
+postgresql_shared_buffers: "128MB" #This value should be 20-25% of the total system total RAM. You find this value on the task manager as the total phyiscal memory. Enter values as xxMB.
+postgresql_temp_buffers: "12MB" # min 800kB  # This value should be 50MB for machines with 2GB of RAM or more and 20MB for those with less. Enter values as xxMB.
+postgresql_work_mem: 25MB   # min 64kB
+
+postgresql_user_privileges:
+  - name: "favorshare"
+    db: "favorshare"
+    priv: "ALL"        # privilege string format: example: INSERT,UPDATE/table:SELECT/anothertable:ALL

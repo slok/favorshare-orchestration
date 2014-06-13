@@ -33,12 +33,11 @@
     - install
     - conf
 
-#- name: Install postgresql
-#  hosts: dbservers
-#  sudo: True
-#  gather_facts: False
-#  roles:
-#    - Ansibles.postgresql
-#  tags:
-#    - install
-#    - postgresql
+- name: Install postgresql
+  hosts: dbservers
+  sudo: True
+  roles:
+    - Ansibles.postgresql
+  tags:
+    - install
+    - postgresql
