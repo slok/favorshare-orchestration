@@ -1,0 +1,10 @@
+[program:postgres]
+;user={{ service_runner_user }}
+;group={{ service_runner_group }}
+command={{ supervisord_postgresql_run_script }}
+autostart=true
+autorestart=true
+stderr_logfile={{ supervisord_logs_path }}/postgres_err.log
+stdout_logfile={{ supervisord_logs_path }}/postgres_out.log
+redirect_stderr=true
+stopsignal=QUIT

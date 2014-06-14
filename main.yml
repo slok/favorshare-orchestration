@@ -41,3 +41,14 @@
   tags:
     - install
     - postgresql
+
+- name: Post install postgresql
+  hosts: dbservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - postgresql-postinstall
+  tags:
+    - postinstall
+    - configuration
+    - postgresql
