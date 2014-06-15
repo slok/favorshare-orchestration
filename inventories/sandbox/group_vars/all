@@ -6,6 +6,12 @@ first_ansible_ssh_user: "vagrant"
 first_ansible_ssh_private_key_file: ~/.vagrant.d/insecure_private_key
 
 #-------------------------------------------------------------------------------
+# System env vars
+system_env_vars:
+  - name: "SYSTEM_ENV"
+    value: "sandbox"
+
+#-------------------------------------------------------------------------------
 # Bash stuff
 motd_warning_color: "\e[1;37m\e[42m"
 motd_character: "#"

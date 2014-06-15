@@ -47,3 +47,13 @@
   tags:
     - apt
     - dependencies
+
+- name: Set environment variables
+  lineinfile:
+    dest: /etc/environment
+    line: "{{ item.name }}=\"{{ item.value }}\""
+  notify: Export environment variables
+  with_items: system_env_vars
+  tags:
+    - environment
+    - vars

@@ -2,3 +2,7 @@
 - name: Save the hostname
   hostname:
       name: "{{ machine_hostname }}"
+
+- name: Export environment variables
+  shell: "export {{ item.name }}=\"{{ item.value }}\""
+  with_items: system_env_vars
