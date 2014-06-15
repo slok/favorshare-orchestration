@@ -48,6 +48,15 @@ DAEMON_OPTS="-c {{ supervisord_conf_path }}/supervisord.conf $DAEMON_OPTS"
 
 set -e
 
+check_privsep_dir() {
+    # Create the PrivSep empty dir if necessary
+    if [ ! -d /var/run/supervisord ]; then
+        mkdir /var/run/supervisord
+        chmod 0755 /var/run/supervisord
+        chown nobody:nogroup /var/run/supervisord
+    fi
+}
+
 running_pid()
 {
     # Check if a given process pid's cmdline matches a given name
@@ -94,6 +103,7 @@ force_stop() {
 
 case "$1" in
   start)
+    check_privsep_dir
     echo -n "Starting $DESC: "
     start-stop-daemon --start --quiet --pidfile $PIDFILE \
         --startas $DAEMON -- $DAEMON_OPTS

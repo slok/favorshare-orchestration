@@ -5,7 +5,9 @@
 if [ -d {{ postgresql_run_path }} ]; then
     chmod 2775 {{ postgresql_run_path }}
 else
-    install -d -m 2775 -o {{ service_runner_user }} -g {{ service_runner_group }} /var/run/postgresql
+    install -d -m 2775 -o {{ service_runner_user }} -g {{ service_runner_group }} {{ postgresql_run_path }}
+    #mkdir {{ postgresql_run_path }}
+    #chown {{ service_runner_user }}:{{ service_runner_group }} {{ postgresql_run_path }}
 fi
 
 #exec sudo -u {{ service_runner_user }} "/usr/lib/postgresql/{{ postgresql_version }}/bin/postgres -D /var/lib/postgresql/{{ postgresql_version }}/main -c config_file=/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"

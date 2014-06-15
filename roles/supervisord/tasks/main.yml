@@ -48,3 +48,17 @@
     - upstart
     - init
     - supervisord
+
+- name: Activate supervisord init.d
+  shell: "update-rc.d -f supervisord defaults"
+  tags:
+    - init
+    - activate
+    - supervisord
+
+- name: Restart supervisorctl
+  service:
+    name: "supervisord"
+    state: "restarted"
+  tags:
+    - supervisord
