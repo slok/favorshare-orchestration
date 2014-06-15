@@ -15,3 +15,11 @@ motd_warning_reset: "\e[m"
 
 # Check "roles/authorization/templates/bashrc.j2" for more colors
 bashrc_promp_color: BGREEN
+
+#-------------------------------------------------------------------------------
+# NTP settings
+ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
