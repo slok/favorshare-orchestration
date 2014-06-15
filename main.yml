@@ -52,3 +52,23 @@
     - postinstall
     - configuration
     - postgresql
+
+- name: Install uwsgi
+  hosts: webservers
+  sudo: True
+  roles:
+    - gdamjan.uwsgi
+  tags:
+    - install
+    - uwsgi
+
+#- name: Post install uwsgi
+#  hosts: webservers
+#  sudo: True
+#  gather_facts: False
+#  roles:
+#    - uwsgi-postinstall
+#  tags:
+#    - postinstall
+#    - configuration
+#    - uwsgi
