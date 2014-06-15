@@ -1,0 +1,35 @@
+---
+
+
+- name: Install NTP package
+  apt:
+    name: "ntp"
+  tags:
+    - install
+    - ntp
+
+- name: Configure NTP
+  template:
+    src: ntp.conf.j2
+    dest: "/etc/ntp.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify: Restart ntp service
+  tags:
+    - configuration
+    - ntp
+
+- name: Change timezone setting
+  template:
+    src: timezone.j2
+    dest: "/etc/timezone"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify: Save timezone
+  tags:
+    - configuration
+    - ntp
+    - timezone
+

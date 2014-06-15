@@ -1,0 +1,29 @@
+---
+
+
+- name: Restart ntp service
+  service:
+    name: "ntp"
+    state: "restarted"
+  tags:
+    - ntp
+    - service
+    - restart
+
+- name: Save timezone
+  shell: "dpkg-reconfigure -f noninteractive tzdata"
+  notify: Restart cron service
+  tags:
+    - ntp
+    - timezone
+
+- name: Restart cron service
+  service:
+    name: "cron"
+    state: "restarted"
+  tags:
+    - cron
+    - service
+    - restart
+    - timezone
+

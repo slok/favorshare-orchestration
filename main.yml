@@ -22,6 +22,16 @@
     - all
     - common
 
+- name: Install NTP
+  hosts: all
+  sudo: True
+  gather_facts: False
+  roles:
+    - ntp
+  tags:
+    - ntp
+    - install
+
 - name: supervisord
   hosts: all
   sudo: True
