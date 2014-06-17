@@ -7,7 +7,7 @@
     - system
     - postgresql
 
-- name: Change user owner all to postgres files
+- name: Change user owner to  all postgres files
   file:
     path: "{{ item }}"
     owner: "{{ service_runner_user }}"

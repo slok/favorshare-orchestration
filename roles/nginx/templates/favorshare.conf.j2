@@ -1,0 +1,14 @@
+server {
+        listen {{ nginx_listen_port }} default_server;
+        listen [::]:{{ nginx_listen_port }} default_server ipv6only=on;
+
+        root /usr/share/nginx/html;
+        index index.html index.htm;
+
+        # Make site accessible from http://localhost/
+        server_name localhost;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}

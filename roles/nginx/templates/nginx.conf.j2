@@ -1,0 +1,26 @@
+daemon off; # IMPORTANT IF WE RUN THIS WITH SUPERVISORD
+#user {{ service_runner_user }}; # Only used if nginx started as root
+worker_processes {{ nginx_workers }};
+pid {{ supervisord_pids_path }}/nginx.pid;
+
+events {
+        worker_connections {{ nginx_worker_connections }};
+}
+
+http {
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+        keepalive_timeout 65;
+        types_hash_max_size 2048;
+
+        include {{ nginx_conf_path }}/mime.types;
+        default_type application/octet-stream;
+
+        gzip on;
+        gzip_disable "msie6";
+
+        include {{ nginx_confs_path }}/*.conf;
+        include {{ nginx_sites_enabled_path }}/*;
+}

@@ -1,0 +1,99 @@
+---
+
+
+- name: Install Nginx
+  apt:
+    name: "nginx={{ nginx_version }}"
+    state: "present"
+  tags:
+    - apt
+    - nginx
+
+- name: Stop Nginx
+  service:
+    name: "nginx"
+    state: "stopped"
+  tags:
+    - service
+    - nginx
+
+- name: Deactivate postgres init.d
+  shell: "update-rc.d nginx disable"
+  tags:
+    - init
+    - deactivate
+    - nginx
+
+- name: Change user owner to all nginx files
+  file:
+    path: "{{ item }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_items:
+    - "{{ nginx_conf_path }}"
+    - "/var/log/nginx"
+    - "/var/lib/nginx"
+  tags:
+    - chown
+    - service
+    - nginx
+
+- name: Create nginx necessary paths on start up
+  lineinfile:
+    dest: "/etc/rc.local"
+    insertbefore: '^exit +0'
+    line: "install -d -m 2775 -o {{ service_runner_user }} -g {{ service_runner_group }} {{ item }}"
+  with_items:
+    - "{{ nginx_conf_path }}"
+    - "/var/log/nginx"
+  tags:
+    - rc.local
+    - nginx
+    - paths
+
+- name: Set supervisord nginx configuration
+  template:
+    src: nginx-supervisor.conf.j2
+    dest: "{{ supervisord_confs_path }}/nginx.conf"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0222
+  notify: Start nginx
+  tags:
+    - configuration
+    - supervisord
+    - nginx
+
+- name: Clean nginx examples
+  file:
+    path: "{{ nginx_sites_enabled_path }}/default"
+    state: "absent"
+  tags:
+    - configuration
+    - default
+    - nginx
+
+- name: Set nginx configuration
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_conf_path }}/nginx.conf"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0744
+  tags:
+    - configuration
+    - supervisord
+    - nginx
+
+- name: Set nginx favorshare site
+  template:
+    src: favorshare.conf.j2
+    dest: "{{ nginx_sites_enabled_path }}/favorshare.conf"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0744
+  tags:
+    - configuration
+    - nginx
+    - app

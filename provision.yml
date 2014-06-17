@@ -93,3 +93,14 @@
     - predeploy
     - configuration
     - apps
+
+- name: Install and configure Nginx
+  hosts: webservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - nginx
+  tags:
+    - install
+    - configuration
+    - nginx

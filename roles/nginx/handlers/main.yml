@@ -1,0 +1,8 @@
+---
+
+- name: Start nginx
+  service:
+    name: "supervisord"
+    state: "restarted"
+  tags:
+    - supervisord
