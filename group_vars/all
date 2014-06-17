@@ -60,4 +60,3 @@ servers_timezone: "Europe/Madrid"
 # Some common settings
 virtualenvs_path: "/opt/virtualenvs"
 apps_path: "/srv/www"
-

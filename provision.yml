@@ -82,3 +82,14 @@
     - postinstall
     - configuration
     - uwsgi
+
+- name: Prepare system for app deployments
+  hosts: webservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - app-preparation
+  tags:
+    - predeploy
+    - configuration
+    - apps

@@ -1,0 +1,29 @@
+- name: Create necessary paths on start up
+  lineinfile:
+    dest: "/etc/rc.local"
+    insertbefore: '^exit +0'
+    line: "install -d -m 2775 -o {{ service_runner_user }} -g {{ service_runner_group }} {{ item }}"
+  with_items:
+    - "{{ virtualenvs_path }}"
+    - "/var/run/favorshare"
+    - "{{ apps_path }}"
+  tags:
+    - rc.local
+    - apps
+    - paths
+
+- name: Create necessary paths
+  file:
+    path: "{{ item }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    state: directory
+    mode: 0775
+  with_items:
+    - "{{ virtualenvs_path }}"
+    - "/var/run/favorshare"
+    - "{{ apps_path }}"
+  tags:
+    - rc.local
+    - apps
+    - paths
