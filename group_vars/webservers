@@ -18,7 +18,6 @@ app_dependencies:
 #-------------------------------------------------------------------------------
 # Nginx settings
 nginx_version: "1.4.6-1ubuntu3"
-nginx_listen_port: 8080  # Use this to run as non root (<1024 ports banned)
 nginx_workers: 5
 nginx_worker_connections: 1024
 nginx_conf_path: "/etc/nginx"

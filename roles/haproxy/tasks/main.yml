@@ -1,0 +1,44 @@
+---
+
+
+- name: Install HAproxy
+  apt:
+    name: "haproxy={{ haproxy_version }}"
+    state: "present"
+  tags:
+    - apt
+    - haproxy
+
+# HAproxy should run as root so we will not use supervisord, instead use 
+# systems upstart
+- name: Activate haproxy init.d
+  shell: "update-rc.d haproxy enable"
+  tags:
+    - init
+    - activate
+    - haproxy
+
+- name: Set haproxy configuration
+  template:
+    src: haproxy.cfg.j2
+    dest: "{{ haproxy_conf_path }}/haproxy.cfg"
+    owner: "root"
+    group: "root"
+    mode: 0744
+  notify: Restart haproxy
+  tags:
+    - configuration
+    - haproxy
+
+- name: Set haproxy rsyslog
+  template:
+    src: 49-haproxy.conf.j2
+    dest: "/etc/rsyslog.d/49-haproxy.conf"
+    owner: "root"
+    group: "root"
+    mode: 0744
+  notify: Restart rsyslog
+  tags:
+    - configuration
+    - rsyslog
+    - haproxy

@@ -60,3 +60,7 @@ servers_timezone: "Europe/Madrid"
 # Some common settings
 virtualenvs_path: "/opt/virtualenvs"
 apps_path: "/srv/www"
+
+#-------------------------------------------------------------------------------
+# Nginx commons settings
+nginx_listen_port: 8080  # Use this to run as non root (<1024 ports banned)

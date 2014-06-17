@@ -104,3 +104,14 @@
     - install
     - configuration
     - nginx
+
+- name: Install and configure HAproxy
+  hosts: lbservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - haproxy
+  tags:
+    - install
+    - configuration
+    - haproxy

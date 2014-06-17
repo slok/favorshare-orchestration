@@ -17,7 +17,7 @@
     - service
     - nginx
 
-- name: Deactivate postgres init.d
+- name: Deactivate nginx init.d
   shell: "update-rc.d nginx disable"
   tags:
     - init

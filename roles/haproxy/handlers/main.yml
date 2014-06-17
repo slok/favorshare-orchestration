@@ -1,0 +1,19 @@
+---
+
+
+- name: Restart haproxy
+  service:
+    name: "haproxy"
+    state: "restarted"
+  tags:
+    - haproxy
+    - service
+
+- name: Restart rsyslog
+  service:
+    name: "rsyslog"
+    state: "restarted"
+  tags:
+    - haproxy
+    - rsyslog
+    - service
