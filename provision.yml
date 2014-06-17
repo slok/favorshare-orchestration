@@ -72,13 +72,13 @@
     - install
     - uwsgi
 
-#- name: Post install uwsgi
-#  hosts: webservers
-#  sudo: True
-#  gather_facts: False
-#  roles:
-#    - uwsgi-postinstall
-#  tags:
-#    - postinstall
-#    - configuration
-#    - uwsgi
+- name: Post install uwsgi
+  hosts: webservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - uwsgi-postinstall
+  tags:
+    - postinstall
+    - configuration
+    - uwsgi

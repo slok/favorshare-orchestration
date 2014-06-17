@@ -1,3 +1,10 @@
 #-------------------------------------------------------------------------------
 # uwsgi settings
 uwsgi_version: "2.0.5.1"
+
+#-------------------------------------------------------------------------------
+# App settings
+favorshare_app_path: "{{ apps_path }}/favorshare/favorshare"
+favorshare_venv_path: "{{ virtualenvs_path }}/favorshare"
+favorshare_uwsgi_pid_path: "/var/run/favorshare/favorshare.pid"
+favorshare_uwsgi_socket_path: "/var/run/favorshare/favorshare.sock"

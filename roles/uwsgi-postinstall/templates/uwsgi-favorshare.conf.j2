@@ -1,0 +1,10 @@
+[program:uwsgi-favorshare]
+;user={{ service_runner_user }}
+;group={{ service_runner_group }}
+command=uwsgi --ini {{ favorshare_app_path }}/favorshare/uwsgi.ini
+autostart=true
+autorestart=true
+stderr_logfile={{ supervisord_logs_path }}/favorshare_err.log
+stdout_logfile={{ supervisord_logs_path }}/favorshare_out.log
+redirect_stderr=true
+stopsignal=QUIT

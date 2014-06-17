@@ -55,3 +55,9 @@ supervisord_binary: "/usr/local/bin/supervisord"
 
 #-------------------------------------------------------------------------------
 servers_timezone: "Europe/Madrid"
+
+#-------------------------------------------------------------------------------
+# Some common settings
+virtualenvs_path: "/opt/virtualenvs"
+apps_path: "/srv/www"
+
