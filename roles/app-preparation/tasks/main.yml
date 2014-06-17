@@ -1,3 +1,6 @@
+---
+
+
 - name: Create necessary paths on start up
   lineinfile:
     dest: "/etc/rc.local"
@@ -27,3 +30,14 @@
     - rc.local
     - apps
     - paths
+
+- name: Install App dependencies
+  apt:
+    name: "{{ item.name }}={{ item.version }}"
+    state: present
+  with_items: app_dependencies
+  tags:
+    - apt
+    - dependencies
+    - app
+
