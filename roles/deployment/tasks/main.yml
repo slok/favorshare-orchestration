@@ -1,0 +1,61 @@
+---
+
+
+- name: Check virtualenv created
+  stat:
+    path: "{{ item.value.virtualenv }}"
+  register: virtualenvs_exist
+  with_dict: deployment_apps
+  tags:
+    - virtualenvs
+    - check
+
+- debug: var=virtualenvs_exist
+
+- name: Create virtualenvs
+  shell: "virtualenv {{ item.item.value.virtualenv }}"
+  when: not item.stat.exists
+  with_items: virtualenvs_exist.results
+  tags:
+    - virtualenvs
+    - create
+
+- name: Check virtualenvs owner
+  file:
+    path: "{{ item.value.virtualenv }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_dict: deployment_apps
+  tags:
+    - virtualenvs
+    - check
+    - owner
+    - permissions
+
+# We could do this per individual
+- name: Update apps
+  git:
+    repo: "{{ item.value.repo }}"
+    dest: "{{ item.value.location }}"
+    version: "{{ item.value.version }}"
+    accept_hostkey: True
+  with_dict: deployment_apps
+  tags:
+    - apps
+    - deploy
+    - update
+
+- name: Check apps owner
+  file:
+    path: "{{ item.value.location }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_dict: deployment_apps
+  tags:
+    - apps
+    - deploy
+    - check
+    - owner
+    - permissions

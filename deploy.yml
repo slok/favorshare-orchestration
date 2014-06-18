@@ -1,0 +1,12 @@
+---
+
+
+- name: Ship it!
+  hosts: webservers
+  sudo: True
+  gather_facts: False
+  roles:
+    - deployment
+  tags:
+    - shipit
+    - deployment
