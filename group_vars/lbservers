@@ -5,3 +5,5 @@ haproxy_version: "1.4.24-2"
 haproxy_listen_port: 80
 haproxy_conf_path: "/etc/haproxy"
 haproxy_log_file: "/var/log/haproxy_1.log"
+haproxy_listen_addres: "*"
+haproxy_balance_algorithm: "roundrobin"

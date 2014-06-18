@@ -17,9 +17,9 @@ defaults
         clitimeout 50000
         srvtimeout 50000
 
-listen favorshare 8080:{{ haproxy_listen_port }}
+listen favorshare {{ haproxy_listen_addres }}:{{ haproxy_listen_port }}
         mode http
-        balance roundrobin
+        balance {{ haproxy_balance_algorithm }}
         {% for host in groups['webservers'] %}
             server {{ host }} {{ hostvars[host]['ansible_ssh_host']}}:{{ nginx_listen_port }} check
         {% endfor %}
