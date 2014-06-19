@@ -6,8 +6,8 @@ uwsgi_version: "2.0.5.1"
 # App settings
 favorshare_app_path: "{{ apps_path }}/favorshare/favorshare"
 favorshare_venv_path: "{{ virtualenvs_path }}/favorshare"
-favorshare_uwsgi_pid_path: "/var/run/favorshare/favorshare.pid"
-favorshare_uwsgi_socket_path: "/var/run/favorshare/favorshare.sock"
+favorshare_uwsgi_pid_path: 
+favorshare_uwsgi_socket_path: 
 
 #-------------------------------------------------------------------------------
 # App dependencies
@@ -36,8 +36,9 @@ deployment_apps:
     location: "{{ apps_path }}/favorshare"
     app_dir: "{{ apps_path }}/favorshare/favorshare"
     virtualenv: "{{ virtualenvs_path }}/favorshare"
-    socket: ""
-    http: None  #"0.0.0.0:8000"
-    pidfile: ""
+    socket: "/var/run/favorshare/favorshare.sock"
+    http: "0.0.0.0:8000"
+    #http: None  #"0.0.0.0:8000"
+    pidfile: "/var/run/favorshare/favorshare.pid"
     module: "favorshare.wsgi"
     processes: 5

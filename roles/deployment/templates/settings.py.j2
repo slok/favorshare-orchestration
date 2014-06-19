@@ -1,0 +1,36 @@
+from .base import *
+
+
+SECRET_KEY = '{{ item.values.secret_key }}'
+DEBUG = {{ item.values.debug }}
+TEMPLATE_DEBUG = {{ item.values.template_debug }}
+
+ALLOWED_HOSTS = [
+    {% for host in item.values.allowed_hosts %}
+    "{{ host }}",
+    {% endfor %}
+]
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "{{ item.values.db_name }}",
+        "USER": "{{ item.values.db_user }}",
+        "PASSWORD": "{{ item.values.db_password }}",
+        "HOST": "{{ item.values.db_host }}",
+        "PORT": "{{ item.values.db_port }}",
+    }
+}
+
+INTERNAL_IPS = (
+    {% for ips in item.values.internal_ips %}
+    "{{ ips }}",
+    {% endfor %}
+)
+
+#INSTALLED_APPS += (
+#)
+#
+#MIDDLEWARE_CLASSES += (
+#)

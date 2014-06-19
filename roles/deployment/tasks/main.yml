@@ -10,8 +10,6 @@
     - virtualenvs
     - check
 
-- debug: var=virtualenvs_exist
-
 - name: Create virtualenvs
   shell: "virtualenv {{ item.item.value.virtualenv }}"
   when: not item.stat.exists
@@ -59,3 +57,15 @@
     - check
     - owner
     - permissions
+
+- name: Set apps uwsgi files
+  template:
+    src: uwsgi.ini.j2
+    dest: "{{ item.value.app_dir }}/{{ item.key }}/uwsgi.ini"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0222
+  with_dict: deployment_apps
+  tags:
+    - apps
+    - uwsgi

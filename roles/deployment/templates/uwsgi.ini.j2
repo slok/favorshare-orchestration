@@ -4,11 +4,11 @@ chdir={{ item.value.app_dir }}
 plugins=python
 virtualenv={{ item.value.virtualenv }}
 #env=DJANGO_SETTINGS_MODULE=favorshare.settings.local
-module={{ module }}:application
+module={{ item.value.module }}:application
 master=True
 pidfile={{ item.value.pidfile }}
 pythonpath=%(chdir)
-{% if http %}
+{% if item.value.http %}
 http={{ item.value.http }}
 {% else %}
 socket={{ item.value.socket }}
