@@ -8,8 +8,7 @@ first_ansible_ssh_private_key_file: ~/.vagrant.d/insecure_private_key
 #-------------------------------------------------------------------------------
 # System env vars
 system_env_vars:
-  - name: "SYSTEM_ENV"
-    value: "sandbox"
+  SYSTEM_ENV: "sandbox"
 
 #-------------------------------------------------------------------------------
 # Bash stuff

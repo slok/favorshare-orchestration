@@ -4,5 +4,5 @@
       name: "{{ machine_hostname }}"
 
 - name: Export environment variables
-  shell: "export {{ item.name }}=\"{{ item.value }}\""
-  with_items: system_env_vars
+  shell: "export {{ item.key }}=\"{{ item.value }}\""
+  with_dict: system_env_vars

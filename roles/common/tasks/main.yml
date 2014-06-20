@@ -51,9 +51,9 @@
 - name: Set environment variables
   lineinfile:
     dest: /etc/environment
-    line: "{{ item.name }}=\"{{ item.value }}\""
+    line: "{{ item.key }}=\"{{ item.value }}\""
   notify: Export environment variables
-  with_items: system_env_vars
+  with_dict: system_env_vars
   tags:
     - environment
     - vars
