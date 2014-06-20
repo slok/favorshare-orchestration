@@ -1,12 +1,12 @@
 from .base import *
 
 
-SECRET_KEY = '{{ item.values.secret_key }}'
-DEBUG = {{ item.values.debug }}
-TEMPLATE_DEBUG = {{ item.values.template_debug }}
+SECRET_KEY = '{{ item.value.secret_key }}'
+DEBUG = {{ item.value.debug }}
+TEMPLATE_DEBUG = {{ item.value.template_debug }}
 
 ALLOWED_HOSTS = [
-    {% for host in item.values.allowed_hosts %}
+    {% for host in item.value.allowed_hosts %}
     "{{ host }}",
     {% endfor %}
 ]
@@ -15,16 +15,16 @@ ALLOWED_HOSTS = [
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "{{ item.values.db_name }}",
-        "USER": "{{ item.values.db_user }}",
-        "PASSWORD": "{{ item.values.db_password }}",
-        "HOST": "{{ item.values.db_host }}",
-        "PORT": "{{ item.values.db_port }}",
+        "NAME": "{{ item.value.db_name }}",
+        "USER": "{{ item.value.db_user }}",
+        "PASSWORD": "{{ item.value.db_password }}",
+        "HOST": "{{ item.value.db_host }}",
+        "PORT": "{{ item.value.db_port }}",
     }
 }
 
 INTERNAL_IPS = (
-    {% for ips in item.values.internal_ips %}
+    {% for ips in item.value.internal_ips %}
     "{{ ips }}",
     {% endfor %}
 )

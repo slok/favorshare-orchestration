@@ -4,6 +4,7 @@ chdir={{ item.value.app_dir }}
 plugins=python
 virtualenv={{ item.value.virtualenv }}
 #env=DJANGO_SETTINGS_MODULE=favorshare.settings.local
+env=SYSTEM_ENV={{ system_env_vars['SYSTEM_ENV'] }}
 module={{ item.value.module }}:application
 master=True
 pidfile={{ item.value.pidfile }}

@@ -64,8 +64,20 @@
     dest: "{{ item.value.app_dir }}/{{ item.key }}/uwsgi.ini"
     owner: "{{ service_runner_user }}"
     group: "{{ service_runner_group }}"
-    mode: 0222
+    mode: 0422
   with_dict: deployment_apps
   tags:
     - apps
     - uwsgi
+
+- name: Set apps project settings
+  template:
+    src: settings.py.j2
+    dest: "{{ deployment_apps[item.key]['app_dir'] }}/{{ item.value.settings_path}}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0644
+  with_dict: django_settings
+  tags:
+    - apps
+    - settings
