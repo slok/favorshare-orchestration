@@ -1,0 +1,26 @@
+---
+
+
+- name: Sync database
+  django_manage:
+    command: syncdb
+    app_path: "{{ item.value.app_dir }}"
+    virtualenv: "{{ item.value.virtualenv }}"
+  environment:
+    SYSTEM_ENV: "{{ system_env_vars['SYSTEM_ENV'] }}"
+  with_dict: deployment_apps
+  tags:
+    - syncdb
+    - apps
+
+- name: Migrate database
+  django_manage:
+    command: migrate
+    app_path: "{{ item.value.app_dir }}"
+    virtualenv: "{{ item.value.virtualenv }}"
+  environment:
+    SYSTEM_ENV: "{{ system_env_vars['SYSTEM_ENV'] }}"
+  with_dict: deployment_apps
+  tags:
+    - syncdb
+    - apps

@@ -5,4 +5,6 @@
 
 - include: virtualenvs.yml
 
+- include: migrations.yml
+
 - include: statics.yml
