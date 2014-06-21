@@ -1,0 +1,54 @@
+---
+
+
+- name: Check virtualenv created
+  stat:
+    path: "{{ item.value.virtualenv }}"
+  register: virtualenvs_exist
+  with_dict: deployment_apps
+  tags:
+    - virtualenvs
+    - check
+
+- name: Create virtualenvs
+  shell: "virtualenv {{ item.item.value.virtualenv }}"
+  when: not item.stat.exists
+  with_items: virtualenvs_exist.results
+  tags:
+    - virtualenvs
+    - create
+
+- name: Install app dependencies
+  pip:
+    requirements: "{{ django_settings[item.key]['requirements_path'] }}"
+    virtualenv: "{{ item.value.virtualenv }}"
+  with_dict: deployment_apps
+  sudo: True
+  sudo_user: "{{ service_runner_user }}"
+  tags:
+    - virtualenvs
+    - pip
+    - dependencies
+
+- name: Check virtualenvs owner
+  file:
+    path: "{{ item.value.virtualenv }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_dict: deployment_apps
+  tags:
+    - virtualenvs
+    - check
+    - owner
+    - permissions
+
+- name: Restart applications
+  supervisorctl:
+    name: 'uwsgi-{{ item.key }}'
+    state: "restarted"
+  with_dict: deployment_apps
+  tags:
+    - supervisor
+    - restart
+    - app
