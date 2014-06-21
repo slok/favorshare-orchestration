@@ -29,6 +29,8 @@ INTERNAL_IPS = (
     {% endfor %}
 )
 
+STATIC_ROOT = '{{ deployment_apps[item.key]['static_files_path'] }}'
+
 #INSTALLED_APPS += (
 #)
 #

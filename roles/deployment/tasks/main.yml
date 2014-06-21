@@ -4,3 +4,5 @@
 - include: apps.yml
 
 - include: virtualenvs.yml
+
+- include: statics.yml

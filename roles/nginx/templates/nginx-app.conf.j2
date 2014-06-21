@@ -18,6 +18,10 @@ server {
     #    root   /usr/share/nginx/html;
     #}
 
+    # an HTTP header important enough to have its own Wikipedia entry:
+    #   http://en.wikipedia.org/wiki/X-Forwarded-For
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
     location {{ django_settings[item.key]['static_url'] }} {
         alias {{ item.value.static_files_path }};
     }

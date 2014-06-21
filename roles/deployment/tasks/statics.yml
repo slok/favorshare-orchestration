@@ -1,0 +1,40 @@
+---
+
+- name: Delete static files
+  file:
+    path: "{{ item.value.static_files_path }}"
+    state: "absent"
+  with_dict: deployment_apps
+  tags:
+    - static
+    - delete
+
+
+- name: Collect static files
+  django_manage:
+    command: collectstatic
+    app_path: "{{ item.value.app_dir }}"
+    #settings: "{{ item.value.app_dir }}/django_settings[item.key]['settings_path'] }}"
+    virtualenv: "{{ item.value.virtualenv }}"
+  environment:
+    SYSTEM_ENV: "{{ system_env_vars['SYSTEM_ENV'] }}"
+  with_dict: deployment_apps
+  tags:
+    - static
+    - collect
+    - apps
+
+- name: Check static files owner
+  file:
+    path: "{{ item.value.static_files_path }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_dict: deployment_apps
+  tags:
+    - static
+    - apps
+    - deploy
+    - check
+    - owner
+    - permissions
