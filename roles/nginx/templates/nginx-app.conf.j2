@@ -18,7 +18,7 @@ server {
     #    root   /usr/share/nginx/html;
     #}
 
-    location {{ django_apps[item.value.key]['static_url'] }}/static {
+    location {{ django_settings[item.key]['static_url'] }} {
         alias {{ item.value.static_files_path }};
     }
 
