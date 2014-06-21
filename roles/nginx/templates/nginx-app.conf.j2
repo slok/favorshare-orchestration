@@ -1,0 +1,29 @@
+
+upstream {{ item.key }} {
+    {% if item.value.uwsgi_http_host and item.value.uwsgi_http_port %}
+    server 127.0.0.1:{{ item.value.uwsgi_http_port }};
+    {% else %}
+    server unix:{{ item.value.socket }};
+    {% endif %}
+}
+
+
+server {
+    listen {{ nginx_listen_port }};
+    server_name     {{ ansible_ssh_host }};
+
+    #error_page   404              /404.html;
+    #error_page   500 502 503 504  /50x.html;
+    #location = /50x.html {
+    #    root   /usr/share/nginx/html;
+    #}
+
+    location {{ django_apps[item.value.key]['static_url'] }}/static {
+        alias {{ item.value.static_files_path }};
+    }
+
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      {{ item.key }};
+    }      
+}

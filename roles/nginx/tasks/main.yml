@@ -86,14 +86,16 @@
     - supervisord
     - nginx
 
-- name: Set nginx favorshare site
+- name: Set nginx apps site
   template:
-    src: favorshare.conf.j2
-    dest: "{{ nginx_sites_enabled_path }}/favorshare.conf"
+    src: nginx-app.conf.j2
+    dest: "{{ nginx_sites_enabled_path }}/{{ item.key }}.conf"
     owner: "{{ service_runner_user }}"
     group: "{{ service_runner_group }}"
     mode: 0744
+  with_dict: deployment_apps
+  notify: Restart nginx
   tags:
     - configuration
     - nginx
-    - app
+    - apps

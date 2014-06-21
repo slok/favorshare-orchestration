@@ -9,8 +9,8 @@ module={{ item.value.module }}:application
 master=True
 pidfile={{ item.value.pidfile }}
 pythonpath=%(chdir)
-{% if item.value.http %}
-http={{ item.value.http }}
+{% if item.value.uwsgi_http_host and item.value.uwsgi_http_port %}
+http={{ item.value.uwsgi_http_host }}:{{ item.value.uwsgi_http_port }}
 {% else %}
 socket={{ item.value.socket }}
 {% endif %}

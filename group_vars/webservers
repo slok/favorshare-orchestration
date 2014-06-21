@@ -27,11 +27,12 @@ deployment_apps:
     version: "master" # Could be a hash, branch or tag name
     repo: "https://github.com/slok/favorshare"
     location: "{{ apps_path }}/favorshare"
+    static_files_path: "{{ apps_path }}/favorshare/static"
     app_dir: "{{ apps_path }}/favorshare/favorshare"
     virtualenv: "{{ virtualenvs_path }}/favorshare"
     socket: "/var/run/favorshare/favorshare.sock"
-    http: "0.0.0.0:8000"
-    #http: None  #"0.0.0.0:8000"
+    uwsgi_http_host: ""  #"0.0.0.0"
+    uwsgi_http_port: ""  #8000
     pidfile: "/var/run/favorshare/favorshare.pid"
     module: "favorshare.wsgi"
     processes: 5

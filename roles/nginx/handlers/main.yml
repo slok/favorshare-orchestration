@@ -6,3 +6,12 @@
     state: "restarted"
   tags:
     - supervisord
+
+- name: Restart nginx
+  supervisorctl:
+    name: 'nginx'
+    state: "restarted"
+  tags:
+    - supervisor
+    - restart
+    - nginx
