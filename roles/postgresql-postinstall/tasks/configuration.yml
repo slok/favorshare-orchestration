@@ -1,0 +1,98 @@
+- name: Stop postgres (runned by system) # This will stop only if system started not supervisord
+  service:
+      name: "postgresql"
+      state: "stopped"
+  tags:
+    - service
+    - system
+    - postgresql
+
+- name: Change user owner to  all postgres files
+  file:
+    path: "{{ item }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    recurse: true
+  with_items:
+  - "/run/postgresql"
+  - "/etc/postgresql"
+  - "/var/log/postgresql"
+  - "/var/lib/postgresql"
+
+- name: Deactivate postgres init.d
+  shell: "update-rc.d postgresql disable"
+  tags:
+    - init
+    - deactivate
+    - postgresql
+
+- name: Deactivate auto start of postgresql
+  lineinfile:
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/start.conf"
+    regexp: '^(auto|disabled)'
+    line: 'manual'
+    backrefs: True
+  tags:
+    - auto-start
+    - deactivate
+    - postgresql
+
+- name: Deactivate postgres background init
+  lineinfile:
+    dest: "/etc/postgresql/{{ postgresql_version }}/main/postgresql.conf"
+    regexp: '^(silent_mode *= *)on'
+    line: '\1off'
+    backrefs: True
+  tags:
+    - background
+    - deactivate
+    - postgresql
+
+- name: Create pid path on start up
+  lineinfile:
+    dest: "/etc/rc.local"
+    insertbefore: '^exit +0'
+    line: "install -d -m 2775 -o {{ service_runner_user }} -g {{ service_runner_group }} {{ postgresql_run_path }}"
+  tags:
+    - rc.local
+    - postgresql
+
+- name: Set supervisord postgres configuration
+  template:
+    src: postgresql.conf.j2
+    dest: "{{ supervisord_confs_path}}/postgresql.conf"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0222
+  tags:
+    - configuration
+    - supervisord
+    - postgresql
+
+- name: Set supervisord postgres init script
+  template:
+    src: run_postgresql.sh.j2
+    dest: "{{ supervisord_postgresql_run_script }}"
+    owner: "{{ service_runner_user }}"
+    group: "{{ service_runner_group }}"
+    mode: 0755
+  tags:
+    - init
+    - supervisord
+    - postgresql
+
+- name: Restart supervisorctl
+  service:
+    name: "supervisord"
+    state: "restarted"
+  tags:
+    - supervisord
+
+- name: Start postgres (runned by supervisord)
+  supervisorctl:
+    name: "postgresql"
+    state: "restarted"
+  tags:
+    - service
+    - supervisord
+    - postgresql

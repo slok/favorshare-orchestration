@@ -43,16 +43,17 @@
     - install
     - conf
 
+# Based on Ansibles.postgresql role from Ansible Galaxy
 - name: Install postgresql
   hosts: dbservers
   sudo: True
   roles:
-    - Ansibles.postgresql
+    - postgresql
   tags:
     - install
     - postgresql
 
-- name: Post install postgresql
+- name: Configure postgresql
   hosts: dbservers
   sudo: True
   gather_facts: False

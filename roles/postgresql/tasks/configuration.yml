@@ -1,0 +1,33 @@
+- name: PostgreSQL | Make sure the postgres data directory exists
+  file:
+    path: "{{postgresql_data_directory}}"
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    state: directory
+    mode: 0700
+
+- name: PostgreSQL | Update configuration - pt. 1 (pg_hba.conf)
+  template:
+    src: pg_hba.conf.j2
+    dest: "{{postgresql_conf_directory}}/pg_hba.conf"
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    mode: 0640
+  register: postgresql_configuration_pt1
+
+- name: PostgreSQL | Update configuration - pt. 2 (postgresql.conf)
+  template:
+    src: postgresql.conf.j2
+    dest: "{{postgresql_conf_directory}}/postgresql.conf"
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    mode: 0640
+  register: postgresql_configuration_pt2
+
+- name: PostgreSQL | Create folder for additional configuration files
+  file:
+    name: "{{postgresql_conf_directory}}/conf.d"
+    state: directory
+    owner: "{{ postgresql_service_user }}"
+    group: "{{ postgresql_service_group }}"
+    mode: 0755
