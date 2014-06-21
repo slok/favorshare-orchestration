@@ -1,13 +1,14 @@
 ---
 
 
-- name: Set supervisord favorshare uwsgi configuration
+- name: Set supervisord apps uwsgi configuration
   template:
-    src: uwsgi-favorshare.conf.j2
-    dest: "{{ supervisord_confs_path}}/uwsgi-favorshare.conf"
+    src: uwsgi-app.conf.j2
+    dest: "{{ supervisord_confs_path}}/uwsgi-{{ item.key }}.conf"
     owner: "{{ service_runner_user }}"
     group: "{{ service_runner_group }}"
     mode: 0222
+  with_dict: deployment_apps
   tags:
     - configuration
     - supervisord

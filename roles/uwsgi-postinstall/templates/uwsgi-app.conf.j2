@@ -1,0 +1,10 @@
+[program:uwsgi-{{ item.key }}]
+;user={{ service_runner_user }}
+;group={{ service_runner_group }}
+command=uwsgi --ini {{ item.value.app_dir }}/{{ item.key }}/uwsgi.ini
+autostart=true
+autorestart=true
+stderr_logfile={{ supervisord_logs_path }}/{{ item.key }}_err.log
+stdout_logfile={{ supervisord_logs_path }}/{{ item.key }}_out.log
+redirect_stderr=true
+stopsignal=QUIT
