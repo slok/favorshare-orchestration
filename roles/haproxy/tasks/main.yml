@@ -9,6 +9,15 @@
     - apt
     - haproxy
 
+- name: Install Socat
+  apt:
+    name: "socat"
+    state: "present"
+  tags:
+    - apt
+    - socat
+    - haproxy
+
 # HAproxy should run as root so we will not use supervisord, instead use 
 # systems upstart
 - name: Activate haproxy init.d (1)

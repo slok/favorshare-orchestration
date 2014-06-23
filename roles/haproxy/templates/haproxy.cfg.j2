@@ -6,6 +6,10 @@ global
         daemon
         user haproxy
         group haproxy
+
+        # turn on stats unix socket
+        stats socket {{ haproxy_admin_socket }} level admin
+
 defaults
         log global
         mode http
