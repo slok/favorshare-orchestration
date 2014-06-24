@@ -18,6 +18,10 @@
     shell: echo "disable server favorshare/{{ inventory_hostname }}" | socat stdio "{{ hostvars[item]['haproxy_admin_socket'] }}"
     delegate_to: "{{ item }}"
     with_items: groups.lbservers
+    tags:
+      - lb
+      - disable
+      - deployment
 
   # Deploy roles
   roles:
@@ -26,11 +30,20 @@
   post_tasks:
   - name: Wait for webserver to come up
     wait_for: host={{ hostvars[inventory_hostname]['ansible_ssh_host'] }} port={{ nginx_listen_port }} state=started timeout=80
+    tags:
+      - webserver
+      - wait
+      - deployment
+
 
   - name: Enable the server in haproxy
     shell: echo "enable server favorshare/{{ inventory_hostname }}" | socat stdio "{{ hostvars[item]['haproxy_admin_socket'] }}"
     delegate_to: "{{ item }}"
     with_items: groups.lbservers
+    tags:
+      - lb
+      - enable
+      - deployment
 
   tags:
     - shipit
