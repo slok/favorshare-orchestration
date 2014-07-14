@@ -24,7 +24,6 @@
     virtualenv: "{{ item.value.virtualenv }}"
   with_dict: deployment_apps
   sudo: True
-  sudo_user: "{{ service_runner_user }}"
   tags:
     - virtualenvs
     - pip

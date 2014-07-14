@@ -59,7 +59,7 @@
     owner: "{{ service_runner_user }}"
     group: "{{ service_runner_group }}"
     mode: 0222
-  notify: Restart nginx  # restart will start if is stopped
+  notify: Restart supervisord
   tags:
     - configuration
     - supervisord

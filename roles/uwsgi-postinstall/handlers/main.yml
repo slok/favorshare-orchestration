@@ -8,12 +8,3 @@
   tags:
     - supervisor
     - restart
-
-- name: Restart nginx
-  supervisorctl:
-    name: 'nginx'
-    state: "restarted"
-  tags:
-    - supervisor
-    - restart
-    - nginx

@@ -9,6 +9,7 @@
     group: "{{ service_runner_group }}"
     mode: 0222
   with_dict: deployment_apps
+  notify: Restart supervisord
   tags:
     - configuration
     - supervisord
